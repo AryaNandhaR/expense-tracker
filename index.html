@@ -1,66 +1,152 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- INTRO PAGE -->
+<section id="introPage" class="page active">
+    <div class="intro-box">
+        <h1>EXPENSE<br>TRACKER</h1>
+        <p>Manage your money. Track your expenses.</p>
+        <button onclick="showPage('loginPage')">Get Started</button>
+    </div>
+</section>
+
+
+<!-- SIGN IN PAGE -->
+<section id="loginPage" class="page">
+    <div class="login-box">
+        <h2>Welcome Back</h2>
+        <p>Sign in to continue</p>
+
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+
+        <button onclick="login()">Sign In</button>
+
+        <p id="loginMessage"></p>
+    </div>
+</section>
+
+
+<!-- HOME PAGE -->
+<section id="homePage" class="page">
     <div class="container">
 
-        <h1>Expense Tracker</h1>
-        <p class="subtitle">Track your daily expenses easily</p>
+        <header>
+            <h1>Expense Tracker</h1>
+            <button class="logout" onclick="showPage('loginPage')">
+                Logout
+            </button>
+        </header>
 
-        <div class="form-box">
-
-            <label>Expense Name</label>
-            <input type="text" id="expenseName" placeholder="Enter expense name">
-
-            <label>Amount (₹)</label>
-            <input type="number" id="expenseAmount" placeholder="Enter amount">
-
-            <label>Category</label>
-            <select id="expenseCategory">
-                <option value="Food">Food</option>
-                <option value="Travel">Travel</option>
-                <option value="Shopping">Shopping</option>
-                <option value="Education">Education</option>
-                <option value="Other">Other</option>
-            </select>
-
-            <label>Date</label>
-            <input type="date" id="expenseDate">
-
-            <button onclick="addExpense()">Add Expense</button>
-
+        <div class="welcome">
+            <h2>Hello! 👋</h2>
+            <p>Manage your expenses easily.</p>
         </div>
 
-        <div class="total-box">
-            <h2>Total Expenses</h2>
-            <p>₹<span id="totalAmount">0</span></p>
+        <div class="dashboard">
+
+            <div class="card" onclick="showPage('monthlyPage')">
+                <div class="icon">📊</div>
+                <h3>Monthly</h3>
+                <p>View monthly expenses</p>
+            </div>
+
+            <div class="card" onclick="showPage('addExpensePage')">
+                <div class="icon">➕</div>
+                <h3>Monthly Expense Tracker</h3>
+                <p>Add your expenses</p>
+            </div>
+
+            <div class="card" onclick="showPage('expenseListPage')">
+                <div class="icon">📋</div>
+                <h3>Expense List</h3>
+                <p>View all expenses</p>
+            </div>
+
+            <div class="card" onclick="showPage('monthlyPage')">
+                <div class="icon">💰</div>
+                <h3>Monthly Total</h3>
+                <p>Check your total spending</p>
+            </div>
+
         </div>
-
-        <h2>Expense Records</h2>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Expense</th>
-                    <th>Amount</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-
-            <tbody id="expenseList">
-            </tbody>
-        </table>
 
     </div>
+</section>
 
-    <script src="script.js"></script>
+
+<!-- ADD EXPENSE PAGE -->
+<section id="addExpensePage" class="page">
+    <div class="content-box">
+
+        <button class="back" onclick="showPage('homePage')">← Home</button>
+
+        <h2>Monthly Expense Tracker</h2>
+
+        <input type="text" id="expenseName" placeholder="Expense name">
+
+        <input type="number" id="expenseAmount" placeholder="Amount">
+
+        <select id="expenseCategory">
+            <option value="Food">Food</option>
+            <option value="Travel">Travel</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Education">Education</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <button onclick="addExpense()">Add Expense</button>
+
+        <p id="expenseMessage"></p>
+
+    </div>
+</section>
+
+
+<!-- EXPENSE LIST PAGE -->
+<section id="expenseListPage" class="page">
+    <div class="content-box">
+
+        <button class="back" onclick="showPage('homePage')">← Home</button>
+
+        <h2>Monthly Expense List</h2>
+
+        <div id="expenseList">
+            <p>No expenses added yet.</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- MONTHLY TOTAL PAGE -->
+<section id="monthlyPage" class="page">
+    <div class="content-box">
+
+        <button class="back" onclick="showPage('homePage')">← Home</button>
+
+        <h2>Monthly Expenses</h2>
+
+        <div class="total-box">
+            <p>Total Expense</p>
+            <h1>₹<span id="totalAmount">0</span></h1>
+        </div>
+
+        <p class="month">Current Month</p>
+
+    </div>
+</section>
+
+
+<script src="script.js"></script>
 
 </body>
 </html>

@@ -1,64 +1,120 @@
 let expenses = [];
-let total = 0;
+
+
+// CHANGE PAGE
+
+function showPage(pageId) {
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(pageId).classList.add("active");
+
+    if (pageId === "expenseListPage") {
+        displayExpenses();
+    }
+
+    if (pageId === "monthlyPage") {
+        calculateTotal();
+    }
+}
+
+
+// SIGN IN
+
+function login() {
+
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    if (username !== "" && password !== "") {
+
+        document.getElementById("loginMessage").innerText = "";
+
+        showPage("homePage");
+
+    } else {
+
+        document.getElementById("loginMessage").innerText =
+            "Please enter username and password.";
+    }
+}
+
+
+// ADD EXPENSE
 
 function addExpense() {
 
     let name = document.getElementById("expenseName").value;
-    let amount = document.getElementById("expenseAmount").value;
+    let amount = Number(document.getElementById("expenseAmount").value);
     let category = document.getElementById("expenseCategory").value;
-    let date = document.getElementById("expenseDate").value;
 
-    if (name === "" || amount === "" || date === "") {
-        alert("Please fill all the fields");
+    if (name === "" || amount <= 0) {
+
+        document.getElementById("expenseMessage").innerText =
+            "Please enter valid expense details.";
+
         return;
     }
 
-    let expense = {
+    expenses.push({
         name: name,
-        amount: Number(amount),
-        category: category,
-        date: date
-    };
-
-    expenses.push(expense);
-
-    displayExpenses();
+        amount: amount,
+        category: category
+    });
 
     document.getElementById("expenseName").value = "";
     document.getElementById("expenseAmount").value = "";
-    document.getElementById("expenseDate").value = "";
+
+    document.getElementById("expenseMessage").innerText =
+        "Expense added successfully!";
+
+    calculateTotal();
 }
+
+
+// DISPLAY EXPENSES
 
 function displayExpenses() {
 
-    let expenseList = document.getElementById("expenseList");
+    let list = document.getElementById("expenseList");
 
-    expenseList.innerHTML = "";
+    if (expenses.length === 0) {
 
-    total = 0;
+        list.innerHTML = "<p>No expenses added yet.</p>";
 
-    for (let i = 0; i < expenses.length; i++) {
-
-        total = total + expenses[i].amount;
-
-        let row = document.createElement("tr");
-
-        row.innerHTML =
-            "<td>" + expenses[i].name + "</td>" +
-            "<td>₹" + expenses[i].amount + "</td>" +
-            "<td>" + expenses[i].category + "</td>" +
-            "<td>" + expenses[i].date + "</td>" +
-            "<td><button class='delete-button' onclick='deleteExpense(" + i + ")'>Delete</button></td>";
-
-        expenseList.appendChild(row);
+        return;
     }
 
-    document.getElementById("totalAmount").innerText = total;
+    list.innerHTML = "";
+
+    expenses.forEach(function(expense) {
+
+        list.innerHTML += `
+            <div class="expense-item">
+                <div>
+                    <strong>${expense.name}</strong>
+                    <br>
+                    <small>${expense.category}</small>
+                </div>
+
+                <strong>₹${expense.amount}</strong>
+            </div>
+        `;
+    });
 }
 
-function deleteExpense(index) {
 
-    expenses.splice(index, 1);
+// CALCULATE TOTAL
 
-    displayExpenses();
+function calculateTotal() {
+
+    let total = 0;
+
+    expenses.forEach(function(expense) {
+        total += expense.amount;
+    });
+
+    document.getElementById("totalAmount").innerText = total;
 }
