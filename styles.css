@@ -1,0 +1,359 @@
+/* ==================== GLOBAL STYLES ==================== */
+:root {
+    --primary-green: #2e7d32;
+    --primary-light: #4caf50;
+    --primary-dark: #1b5e20;
+    --accent-green: #e8f5e9;
+    --bg-light: #f4f7f6;
+    --white: #ffffff;
+    --text-dark: #333333;
+    --text-muted: #666666;
+    --danger: #d32f2f;
+    --warning: #f57c00;
+    --border-radius: 12px;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+}
+
+/* Utility Classes */
+.hidden { 
+    display: none !important; 
+}
+
+.btn {
+    background-color: var(--primary-green);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.btn:hover { 
+    background-color: var(--primary-dark); 
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--primary-green);
+    border: 2px solid var(--primary-green);
+}
+
+.btn-outline:hover {
+    background-color: var(--accent-green);
+}
+
+/* ==================== FRAME 1: SPLASH SCREEN ==================== */
+#frame-splash {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    text-align: center;
+}
+
+#frame-splash h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+#frame-splash p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+/* ==================== FRAME 2: SIGN IN / REGISTER ==================== */
+#frame-auth {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 900;
+}
+
+.auth-card {
+    background: var(--white);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.auth-card h2 {
+    color: var(--primary-green);
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: var(--primary-green);
+}
+
+/* ==================== MAIN APP LAYOUT ==================== */
+#app-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Sidebar Navigation */
+.sidebar {
+    width: 240px;
+    background-color: var(--white);
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px 20px 20px;
+    color: var(--primary-green);
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.nav-menu {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 20px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.nav-item:hover, .nav-item.active {
+    background-color: var(--accent-green);
+    color: var(--primary-green);
+    border-left: 4px solid var(--primary-green);
+}
+
+.nav-item svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.user-profile {
+    padding: 20px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-info p {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.user-info span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Main Content Views */
+.content-area {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.frame {
+    display: none;
+}
+
+.frame.active {
+    display: block;
+}
+
+/* Header Bar */
+.frame-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.frame-header h2 {
+    color: var(--primary-dark);
+}
+
+/* Notification Banner */
+.alert-banner {
+    padding: 15px;
+    background-color: #ffebee;
+    color: var(--danger);
+    border: 1px solid #ffcdd2;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+}
+
+.alert-banner.warning {
+    background-color: #fff3e0;
+    color: var(--warning);
+    border-color: #ffe0b2;
+}
+
+/* Cards Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: var(--white);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border-top: 4px solid var(--primary-green);
+}
+
+.card h3 {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.card .amount {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+/* Forms Layout */
+.panel {
+    background: var(--white);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 25px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+th {
+    background-color: var(--accent-green);
+    color: var(--primary-dark);
+}
+
+/* Chart Canvas Area */
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    padding-top: 20px;
+    border-bottom: 2px solid var(--primary-green);
+}
+
+.bar {
+    flex: 1;
+    background: linear-gradient(to top, var(--primary-green), var(--primary-light));
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    transition: height 0.3s ease;
+    min-height: 5px;
+}
+
+.bar-label {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.bar-value {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    font-weight: bold;
+}
